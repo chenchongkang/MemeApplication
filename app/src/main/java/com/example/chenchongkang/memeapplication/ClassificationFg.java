@@ -6,26 +6,19 @@ package com.example.chenchongkang.memeapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.chenchongkang.memeapplication.Adapter.ViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.id.tabhost;
 
 /**
  * Created by dm on 16-3-29.
@@ -34,10 +27,12 @@ import static android.R.id.tabhost;
 public class ClassificationFg extends Fragment implements View.OnClickListener {
 
     private ViewPager viewPager = null;
-    private List<View> viewContainter = new ArrayList<View>();   //存放容器
+    private List<Fragment> viewContainter = new ArrayList<Fragment>();   //存放容器
     private ViewPagerAdapter viewPagerAdapter = null;   //声明适配器
     private TabHost mTabHost = null;
     private TabWidget mTabWidget = null;
+    private  ClassificationFgTabOne fgtab1;
+    private  ClassificationFgTabTwo fgtab2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,14 +42,13 @@ public class ClassificationFg extends Fragment implements View.OnClickListener {
         mTabHost = (TabHost)view.findViewById(android.R.id.tabhost);
         initMyTabHost();  //初始化TabHost
         initViewPagerContainter();  //初始viewPager
-        viewPagerAdapter = new ViewPagerAdapter();
+        viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
         //设置adapter的适配器
         viewPager.setAdapter(viewPagerAdapter);
         //设置viewPager的监听器
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
             //当 滑动 切换时
             @Override
@@ -98,69 +92,52 @@ public class ClassificationFg extends Fragment implements View.OnClickListener {
          * setIndicator()   每个Tab的标题
          * setCount()       每个Tab的标签页布局
          */
-        mTabHost.addTab(mTabHost.newTabSpec("tab_1").setContent(R.id.tab_1).setIndicator("第一页"));
-        mTabHost.addTab(mTabHost.newTabSpec("tab_2").setContent(R.id.tab_2).setIndicator("第二页"));
-        mTabHost.addTab(mTabHost.newTabSpec("tab_3").setContent(R.id.tab_3).setIndicator("第三页"));
-        mTabHost.addTab(mTabHost.newTabSpec("tab_4").setContent(R.id.tab_4).setIndicator("第四页"));
+        mTabHost.addTab(mTabHost.newTabSpec("tab_1").setContent(R.id.tab_1).setIndicator("最新"));
+        mTabHost.addTab(mTabHost.newTabSpec("tab_2").setContent(R.id.tab_2).setIndicator("最热"));
+        mTabHost.addTab(mTabHost.newTabSpec("tab_3").setContent(R.id.tab_3).setIndicator("暴漫"));
+        mTabHost.addTab(mTabHost.newTabSpec("tab_4").setContent(R.id.tab_4).setIndicator("明星"));
     }
 
     //初始化viewPager
     public void initViewPagerContainter(){
         //建立四个view的样式，并找到他们
-        View view_1 = LayoutInflater.from(getContext()).inflate(R.layout.tab1,null);
-        View view_2 = LayoutInflater.from(getContext()).inflate(R.layout.tab2,null);
-        View view_3 = LayoutInflater.from(getContext()).inflate(R.layout.tab3,null);
-        View view_4 = LayoutInflater.from(getContext()).inflate(R.layout.tab4,null);
-        TextView textView=(TextView) view_1.findViewById(R.id.tab1_tv1);
-        textView.setOnClickListener(this);
-        Button button=(Button) view_1.findViewById(R.id.bt_test1);
-        button.setOnClickListener(this);
+//        View view_1 = LayoutInflater.from(getContext()).inflate(R.layout.tab1,null);
+//        View view_2 = LayoutInflater.from(getContext()).inflate(R.layout.tab2,null);
+//        View view_3 = LayoutInflater.from(getContext()).inflate(R.layout.tab3,null);
+//        View view_4 = LayoutInflater.from(getContext()).inflate(R.layout.tab4,null);
+//        TextView textView=(TextView) view_1.findViewById(R.id.tab1_tv1);
+//        textView.setOnClickListener(this);
+//        Button button=(Button) view_1.findViewById(R.id.bt_test1);
+//        button.setOnClickListener(this);
         //加入ViewPage的容器
-        viewContainter.add(view_1);
-        viewContainter.add(view_2);
-        viewContainter.add(view_3);
-        viewContainter.add(view_4);
+        ClassificationFgTabOne classificationFgTabOne = new ClassificationFgTabOne();
+        ClassificationFgTabTwo classificationFgTabTwo = new ClassificationFgTabTwo();
+        ClassificationFgTabThree classificationFgTabThree= new ClassificationFgTabThree();
+        ClassificationFgTabFour classificationFgTabFour =new ClassificationFgTabFour();
+        viewContainter.add(classificationFgTabOne);
+        viewContainter.add(classificationFgTabTwo);
+        viewContainter.add(classificationFgTabThree);
+        viewContainter.add(classificationFgTabFour);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tab1_tv1:
-                Intent intent_1 = new Intent(getActivity(),PersonalFgSz.class);
-                startActivity(intent_1);
-                break;
-            case R.id.bt_test1:
-                Intent intent_2 = new Intent(getActivity(),PersonalFgPj.class);
-                startActivity(intent_2);
-                break;
-            default:
-                break;
-        }
-
     }
     //内部类实现viewpager的适配器
-    private class ViewPagerAdapter extends PagerAdapter{
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        //该方法 决定 并 返回 viewpager中组件的数量
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return viewContainter.get(position);
+        }
+
         @Override
         public int getCount() {
-            return viewContainter.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object o) {
-            return view == o;
-        }
-        //滑动切换的时候，消除当前组件
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(viewContainter.get(position));
-        }
-        //每次滑动的时候生成的组件
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(viewContainter.get(position));
-            return viewContainter.get(position);
+            return 4;
         }
     }
 }

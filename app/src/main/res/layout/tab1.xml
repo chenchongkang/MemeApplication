@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tab01"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tab1_tv1"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:text="第一个标签页的第1个TextView组件"
-        android:textSize="8pt" />
-    <TextView
-        android:id="@+id/tab1_tv2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第一个标签页的第2个TextView组件"
-        android:textSize="8pt" />
-    <Button
-        android:id="@+id/bt_test1"
-        android:text="test1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+<ListView
+    android:id="@+id/tab1_lv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:listitem="@layout/selectionfg_xxk">
+
+</ListView>
 </LinearLayout>

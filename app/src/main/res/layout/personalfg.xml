@@ -55,7 +55,7 @@
                 android:layout_alignTop="@+id/xz_text"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/ic_startone"/>
+                android:background="@drawable/xiazai"/>
 
             <TextView
                 android:gravity="center_vertical"
@@ -84,8 +84,10 @@
             android:id="@+id/rl_sc"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/white"
-            >
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@color/white">
 
             <ImageView
                 android:layout_width="24dp"
@@ -95,15 +97,15 @@
                 android:layout_alignTop="@+id/sc_text"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/ic_startone"/>
+                android:background="@drawable/shoucang"/>
 
             <TextView
-                android:gravity="center_vertical"
                 android:id="@+id/sc_text"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_marginLeft="64dp"
                 android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
                 android:text="收藏"
                 android:textColor="#212121"
                 android:textSize="18sp"
@@ -135,7 +137,7 @@
                 android:layout_alignTop="@+id/pj_text"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/ic_startone"/>
+                android:background="@drawable/pingjia"/>
 
             <TextView
                 android:gravity="center_vertical"
@@ -167,7 +169,7 @@
                 android:layout_alignTop="@+id/sz_text"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/ic_startone"/>
+                android:background="@drawable/shezhi"/>
 
             <TextView
                 android:gravity="center_vertical"
@@ -207,7 +209,7 @@
                 android:layout_alignTop="@+id/gy_text"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/ic_startone"/>
+                android:background="@drawable/guanyu"/>
 
             <TextView
                 android:gravity="center_vertical"

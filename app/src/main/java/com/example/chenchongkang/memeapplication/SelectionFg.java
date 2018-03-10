@@ -32,9 +32,9 @@ public class SelectionFg extends Fragment {
     //记录上一次点的位置
     private int oldPosition = 0;
     //存放图片的id
-    private int[] imageIds = new int[]{R.drawable.ic_startone, R.drawable.ic_starttwo, R.drawable.ic_startthree, R.drawable.ic_startone, R.drawable.ic_startfour};
+    private int[] imageIds = new int[]{R.drawable.timg1, R.drawable.timg2, R.drawable.timg3, R.drawable.timg4, R.drawable.timg5};
     //存放图片的标题
-    private String[] titles = new String[]{"表情包1", "表情包2", "表情包3", "表情包4","表情包5"};
+    private String[] titles = new String[]{"大脸系列表情包", "装逼系列表情包", "打钱系列表情包", "心累系列表情包","智商系列表情包"};
     private TextView title;
     private ViewPagerAdapter adapter;
 
