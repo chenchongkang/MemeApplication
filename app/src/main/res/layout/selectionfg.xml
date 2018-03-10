@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/frame1"
+            android:layout_width="match_parent"
+            android:layout_height="200dip">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dip"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="12dp"
+                android:background="#33000000"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="图片标题"
+                    android:textColor="@android:color/white"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dip"
+                    android:orientation="horizontal"
+                    >
+
+                    <View
+                        android:id="@+id/dot_0"
+                        android:layout_width="10dip"
+                        android:layout_height="10dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/ic_startone"/>
+
+                    <View
+                        android:id="@+id/dot_1"
+                        android:layout_width="10dip"
+                        android:layout_height="10dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/ic_starttwo"/>
+
+                    <View
+                        android:id="@+id/dot_2"
+                        android:layout_width="10dip"
+                        android:layout_height="10dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/ic_startthree"/>
+
+                    <View
+                        android:id="@+id/dot_3"
+                        android:layout_width="10dip"
+                        android:layout_height="10dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/ic_startone"/>
+
+                    <View
+                        android:id="@+id/dot_4"
+                        android:layout_width="10dip"
+                        android:layout_height="10dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/ic_startfour"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <ListView
+            android:id="@+id/list_xxk"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/frame1"
+            android:background="#e0e0e0"
+            tools:listitem="@layout/selectionfg_xxk">
+
+        </ListView>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

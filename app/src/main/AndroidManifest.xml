@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.chenchongkang.memeapplication">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_laucher_memecover"
+        android:label="表情包推荐"
+        android:roundIcon="@mipmap/ic_laucher_memecover"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            </activity>
+        <activity android:name=".PersonalFgSz">
+        </activity>
+        <activity android:name=".PersonalFgXz">
+        </activity>
+        <activity android:name=".PersonalFgSc">
+        </activity>
+        <activity android:name="PersonalFgPj">
+        </activity>
+        <activity android:name=".PersonalFgGy">
+        </activity>
+        <activity android:name=".StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
+    </application>
+
+</manifest>

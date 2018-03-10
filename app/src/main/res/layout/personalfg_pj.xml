@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#e0e0e0"
+              android:orientation="vertical"
+
+    >
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <ImageButton
+            android:id="@+id/return_4"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/return1"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="评价"
+            android:textSize="20sp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_marginTop="16dp"
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:context=".PersonalFgPj"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:text="赏个好评吧~"
+            android:textSize="20sp"/>
+
+        <RatingBar
+            android:id="@+id/star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:numStars="5"
+            android:progressTint="@android:color/holo_orange_dark"
+            android:rating="5"/>
+
+        <TextView
+            android:id="@+id/show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="嗯~客官五颗星就够了"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+    <TextView
+        android:background="@color/result_points"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="提交评价"
+        android:textSize="24sp"
+        android:gravity="center"/>
+
+</LinearLayout>

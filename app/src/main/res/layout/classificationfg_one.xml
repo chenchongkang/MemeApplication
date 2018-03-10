@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dddddd"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView_3"
+                app:cardBackgroundColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="72dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:background="@drawable/ic_startone"
+                        android:id="@+id/imageView_3"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginLeft="16dp"/>
+
+                    <TextView
+                        android:text="表情包1"
+                        android:id="@+id/textView_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="72dp"
+                        android:layout_marginTop="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="72dp"/>
+                    <TextView
+                        android:text="表情包1的描述"
+                        android:paddingTop="4dp"
+                        android:id="@+id/textView_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_below="@+id/textView_1"
+                        android:layout_marginStart="72dp"
+                        android:layout_marginTop="4dp"
+                        android:textSize="12dp"
+                        android:layout_marginLeft="72dp"/>
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

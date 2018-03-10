@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#e0e0e0"
+              android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white">
+
+        <ImageButton
+            android:id="@+id/return_5"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/return1"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="关于应用"
+            android:textSize="20sp"/>
+
+    </RelativeLayout>
+    <TextView
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textSize="16dp"
+        android:background="@color/white"
+        android:layout_marginTop="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="表情包推荐应用程序\n\n2018毕业设计\n\napp为开发者的毕业设计作品，app的表情来\n\n源于网友的网上上传分享,图片版权归原作者\n\n所有，如果有任何侵权问题请告知，我们会\n\n立即处理。\n\n联系方式：751547892@qq.com"
+        android:textColor="@color/share_text"/>
+
+
+</LinearLayout>
