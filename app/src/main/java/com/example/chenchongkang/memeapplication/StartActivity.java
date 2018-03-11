@@ -7,6 +7,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
+import com.example.chenchongkang.memeapplication.Login.LoginActivity;
+
 /**
  * Created by chenchongkang on 2018/2/5.
  */
@@ -46,7 +48,7 @@ public class StartActivity extends Activity {
     }
 
     private void skip() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 }

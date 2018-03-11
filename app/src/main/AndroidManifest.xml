@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.chenchongkang.memeapplication">
+          package="com.example.chenchongkang.memeapplication">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            </activity>
+        </activity>
         <activity android:name=".PersonalFgSz">
         </activity>
         <activity android:name=".PersonalFgXz">
@@ -21,12 +21,16 @@
         </activity>
         <activity android:name=".PersonalFgGy">
         </activity>
+        <activity android:name=".Login.LoginActivity">
+        </activity>
+        <activity android:name=".Login.RegisterActivity">
+        </activity>
         <activity android:name=".StartActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-            </activity>
+        </activity>
     </application>
 
 </manifest>
