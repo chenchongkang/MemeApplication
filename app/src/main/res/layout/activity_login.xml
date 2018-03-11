@@ -1,43 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
               android:background="@drawable/login"
+              android:orientation="vertical"
     >
+
     <TextView
-        android:layout_marginTop="72dp"
-        android:layout_marginLeft="32dp"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="72dp"
+        android:gravity="center_vertical"
         android:text="表情包推荐"
         android:textColor="@color/white"
         android:textSize="32sp"
-        android:gravity="center_vertical"
         />
 
     <EditText
         android:id="@+id/login_usre"
+        style="@style/SmsEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="48dp"
         android:hint="用户名"
-        android:textColorHint="@color/white"
+        android:paddingLeft="4dp"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="24sp"/>
 
     <EditText
+        android:inputType="textPassword"
         android:id="@+id/login_password"
+        style="@style/SmsEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="8dp"
         android:hint="密码"
-        android:textColorHint="@color/white"
+        android:paddingLeft="4dp"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="24sp"/>
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.7"
+        android:background="#00b0ff"
+        android:text="登录"
+        android:textColor="@color/white"
+        android:textSize="24dp"/>
+
+    <RelativeLayout
+        android:layout_marginTop="16dp"
+        android:id="@+id/relativelayout_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:layout_marginLeft="32dp"
+            android:id="@+id/wjmm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="忘记密码？"
+            android:textColor="#00b0ff"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_marginRight="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/xyhzc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#00b0ff"
+            android:text="新用户注册"
+
+            />
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="登录即代表阅读并同意"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+            <TextView
+                android:textSize="20sp"
+                android:textColor="#00b0ff"
+                android:text="服务条款"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
 
 </LinearLayout>

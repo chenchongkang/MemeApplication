@@ -9,6 +9,7 @@
     </style>
     <style name="SmsEditText">
         <item name="android:background">@drawable/edittext_shape</item>
+        <item name="android:alpha">0.8</item>
     </style>
 
 </resources>
