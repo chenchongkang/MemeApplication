@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.chenchongkang.memeapplication">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_laucher_memecover"
@@ -21,9 +24,13 @@
         </activity>
         <activity android:name=".PersonalFgGy">
         </activity>
-        <activity android:name=".Login.LoginActivity">
+        <activity android:name=".login.LoginActivity">
         </activity>
-        <activity android:name=".Login.RegisterActivity">
+        <activity android:name=".login.RegisterActivity">
+        </activity>
+        <activity android:name=".PersonalFgSzNumbersafe">
+        </activity>
+        <activity android:name=".UserinfoActivity">
         </activity>
         <activity android:name=".StartActivity">
             <intent-filter>

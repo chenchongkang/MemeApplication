@@ -19,7 +19,7 @@
         />
 
     <EditText
-        android:id="@+id/login_usre"
+        android:id="@+id/login_usrename"
         style="@style/SmsEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -101,9 +101,9 @@
                 android:layout_height="wrap_content"
                 android:text="登录即代表阅读并同意"
                 android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textSize="12sp"/>
             <TextView
-                android:textSize="20sp"
+                android:textSize="12sp"
                 android:textColor="#00b0ff"
                 android:text="服务条款"
                 android:layout_width="wrap_content"

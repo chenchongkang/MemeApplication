@@ -7,7 +7,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
-import com.example.chenchongkang.memeapplication.Login.LoginActivity;
+import com.example.chenchongkang.memeapplication.login.LoginActivity;
 
 /**
  * Created by chenchongkang on 2018/2/5.

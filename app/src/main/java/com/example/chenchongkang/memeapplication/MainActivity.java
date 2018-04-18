@@ -206,7 +206,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onBackPressed() {
         long secondTime = System.currentTimeMillis();
         if (secondTime - firstTime > 2000) {
-            Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "再按一次退出登录", Toast.LENGTH_SHORT).show();
             firstTime = secondTime;
         } else {
             System.exit(0);

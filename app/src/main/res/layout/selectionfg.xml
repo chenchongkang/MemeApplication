@@ -90,6 +90,12 @@
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>
+        <!--<ImageView-->
+            <!--android:id="@+id/test10"-->
+            <!--android:layout_below="@id/frame1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/test10"/>-->
 
         <ListView
             android:id="@+id/list_xxk"

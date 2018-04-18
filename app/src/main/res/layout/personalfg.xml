@@ -16,7 +16,7 @@
         >
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/round_1"
+            android:id="@+id/avatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
@@ -26,7 +26,7 @@
             android:layout_marginTop="8dp"
             android:layout_width="100dp"
             android:layout_height="24dp"
-            android:layout_below="@+id/round_1"
+            android:layout_below="@+id/avatar"
             android:text="一点点小任性"
             android:textColor="#ffffff"
             android:textSize="16sp"/>

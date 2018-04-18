@@ -7,13 +7,13 @@
     >
 
     <RelativeLayout
-        android:background="@color/white"
+        android:background="#424242"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         >
 
         <ImageButton
-            android:background="@drawable/return1"
+            android:background="@drawable/return2"
             android:id="@+id/return_1"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -31,11 +31,13 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
+            android:textColor="@color/white"
             android:text="设置"
             android:textSize="20sp"/>
 
     </RelativeLayout>
     <TextView
+        android:id="@+id/tv_numberSafe"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"

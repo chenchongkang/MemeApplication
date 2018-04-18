@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="#e0e0e0"
+              android:background="#e0e0e0e0"
               android:orientation="vertical"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/white">
+        android:background="#424242">
 
         <ImageButton
             android:id="@+id/return_5"
@@ -19,7 +19,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/return1"
+            android:background="@drawable/return2"
             android:gravity="center_vertical"/>
 
         <TextView
@@ -28,6 +28,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
+            android:textColor="@color/white"
             android:text="关于应用"
             android:textSize="20sp"/>
 

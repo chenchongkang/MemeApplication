@@ -5,7 +5,6 @@ package com.example.chenchongkang.memeapplication;
  */
 
 import android.content.Intent;
-import android.hardware.camera2.TotalCaptureResult;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,7 +12,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dm on 16-3-29.
@@ -23,6 +23,8 @@ public class PersonalFg extends Fragment implements OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.personalfg,container,false);
+        CircleImageView circleImageView=(CircleImageView) view.findViewById(R.id.avatar);
+        circleImageView.setOnClickListener(this);
         RelativeLayout relativeLayout=(RelativeLayout) view.findViewById(R.id.rl_sz);
         relativeLayout.setOnClickListener(this);
         RelativeLayout relativeLayout_1=(RelativeLayout)view.findViewById(R.id.rl_xz);
@@ -58,6 +60,10 @@ public class PersonalFg extends Fragment implements OnClickListener{
             case R.id.rl_gy:
                 Intent intent_5 = new Intent(getActivity(),PersonalFgGy.class);
                 startActivity(intent_5);
+                break;
+            case R.id.avatar:
+                Intent intent_6 = new Intent(getActivity(),UserinfoActivity.class);
+                startActivity(intent_6);
                 break;
             default:
                 break;

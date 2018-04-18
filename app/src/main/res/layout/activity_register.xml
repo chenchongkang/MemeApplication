@@ -39,6 +39,7 @@
             />
 
         <EditText
+            android:id="@+id/et_username"
             style="@style/SmsEditText"
             android:layout_width="match_parent"
             android:layout_height="36dp"
@@ -69,6 +70,7 @@
             />
 
         <EditText
+            android:id="@+id/et_password_one"
             style="@style/SmsEditText"
             android:layout_width="match_parent"
             android:layout_height="36dp"
@@ -90,8 +92,8 @@
         >
 
         <EditText
+            android:id="@+id/et_password_two"
             style="@style/SmsEditText"
-
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_marginLeft="96dp"
@@ -122,6 +124,7 @@
             />
 
         <EditText
+            android:id="@+id/et_phone_number"
             style="@style/SmsEditText"
             android:layout_width="match_parent"
             android:layout_height="36dp"
@@ -151,6 +154,7 @@
             />
 
         <EditText
+            android:id="@+id/et_address"
             style="@style/SmsEditText"
             android:layout_width="match_parent"
             android:layout_height="36dp"

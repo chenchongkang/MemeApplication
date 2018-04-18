@@ -1,16 +1,7 @@
-package com.example.chenchongkang.memeapplication.Adapter;
+package com.example.chenchongkang.memeapplication.adapter;
 
-import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import com.example.chenchongkang.memeapplication.ClassificationFg;
 
 /**
  * Created by chenchongkang on 2018/3/9.
