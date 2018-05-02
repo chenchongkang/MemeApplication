@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 e.printStackTrace();
                             }
 
-                            String s = HttpHandler.executeHttpPost("http://172.27.35.3:8081/meme/register", jsonObject.toString());
+                            String s = HttpHandler.executeHttpPost("http://172.22.34.2:8081/meme/register", jsonObject.toString());
                             if ("success".equals(s)) {
                                 Intent intent_1 = new Intent(RegisterActivity.this, LoginActivity.class);
                                 startActivity(intent_1);

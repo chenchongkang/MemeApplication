@@ -140,7 +140,7 @@ public class SelectionFg extends Fragment {
     }
 
     private void parseJOSNWithGSON(){
-        String jsondata = HttpHandler.executeHttpPost("http://172.27.35.3:8081/meme/entitymemelist", null);
+        String jsondata = HttpHandler.executeHttpPost("http://172.22.34.2:8081/meme/entitymemelist", null);
         Gson gson = new Gson();
         memeBeanList = gson.fromJson(jsondata,new TypeToken<List<MemeBean>>(){}.getType());
         showToast();

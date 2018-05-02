@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        String s = HttpHandler.executeHttpPost("http://172.27.35.3:8081/meme/login", jsonObject.toString());
+                        String s = HttpHandler.executeHttpPost("http://172.22.34.2:8081/meme/login", jsonObject.toString());
                         if ("success".equals(s)) {
                             Intent intent_1 = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent_1);
