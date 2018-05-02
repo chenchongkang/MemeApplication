@@ -111,7 +111,7 @@ public class SelectionFg extends Fragment {
 
         return rootView;
     }
-
+//  图片适配器
     private class ViewPagerAdapter extends PagerAdapter {
 
         @Override
@@ -140,7 +140,7 @@ public class SelectionFg extends Fragment {
     }
 
     private void parseJOSNWithGSON(){
-        String jsondata = HttpHandler.executeHttpPost("http://172.22.34.2:8081/meme/entitymemelist", null);
+        String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/entitymemelist", null);
         Gson gson = new Gson();
         memeBeanList = gson.fromJson(jsondata,new TypeToken<List<MemeBean>>(){}.getType());
         showToast();
@@ -148,8 +148,6 @@ public class SelectionFg extends Fragment {
 
 
     private class MyAdepter extends BaseAdapter{
-
-
 
         @Override
         public int getCount() {

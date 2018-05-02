@@ -59,6 +59,7 @@
         android:layout_height="48dp"/>
 
     <TextView
+        android:id="@+id/tv_exit"
         android:layout_marginTop="8dp"
         android:background="@color/white"
         android:layout_width="match_parent"

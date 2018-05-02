@@ -13,9 +13,9 @@
        <!--android:background="@drawable/test6"/>-->
    <ListView
        android:background="#e0e0e0"
-       android:id="@+id/list_2"
+       android:id="@+id/listView_recommend"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       tools:listitem="@layout/recommendation_one">
+       tools:listitem="@layout/selectionfg_xxk">
    </ListView>
 </LinearLayout>

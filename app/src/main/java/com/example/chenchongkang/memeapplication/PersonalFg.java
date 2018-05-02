@@ -42,6 +42,10 @@ public class PersonalFg extends Fragment implements OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_sz:
+//                Intent intent_1 = new Intent();
+//                intent_1.setClass(getActivity(), PersonalFgSz.class);
+//                intent_1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  //注意本行的FLAG设置
+//                startActivity(intent_1);
                 Intent intent_1 = new Intent(getActivity(),PersonalFgSz.class);
                 startActivity(intent_1);
                 break;

@@ -3,6 +3,7 @@ package com.example.chenchongkang.memeapplication.login;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,8 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private SharedPreferences mPref;
+    private SharedPreferences.Editor mEditor;
     private EditText username;
     private EditText password;
     private long firstTime = 0;
@@ -72,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        String s = HttpHandler.executeHttpPost("http://172.22.34.2:8081/meme/login", jsonObject.toString());
+                        String s = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/login", jsonObject.toString());
                         if ("success".equals(s)) {
                             Intent intent_1 = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent_1);
