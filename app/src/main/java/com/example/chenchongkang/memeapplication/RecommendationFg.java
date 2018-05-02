@@ -39,6 +39,7 @@ public class RecommendationFg extends Fragment{
         }.start();
         return view;
     }
+//    cheshi
     private void parseJOSNWithGSON(){
         String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/recommendlists/"+6, null);
         Gson gson = new Gson();
