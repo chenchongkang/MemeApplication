@@ -11,7 +11,7 @@
         <!--android:layout_height="wrap_content"-->
         <!--android:background="@drawable/test4"/>-->
     <ListView
-        android:id="@+id/tab3_lv"
+        android:id="@+id/lv_baoman"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/selectionfg_xxk">

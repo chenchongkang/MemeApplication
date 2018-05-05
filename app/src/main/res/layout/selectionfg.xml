@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tool="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:gravity="center"
@@ -90,13 +89,11 @@
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>
-        <!--<ImageView-->
-            <!--android:id="@+id/test10"-->
-            <!--android:layout_below="@id/frame1"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@drawable/test10"/>-->
 
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
         <ListView
             android:id="@+id/list_xxk"
             android:layout_width="match_parent"
@@ -106,6 +103,7 @@
             tools:listitem="@layout/selectionfg_xxk">
 
         </ListView>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </RelativeLayout>
 

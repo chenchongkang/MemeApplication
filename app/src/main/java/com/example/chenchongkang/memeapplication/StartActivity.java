@@ -22,7 +22,7 @@ public class StartActivity extends Activity {
         setContentView(R.layout.start);
         startview = (ImageView) this.findViewById(R.id.start_view);
         AlphaAnimation anima = new AlphaAnimation(0.3f, 1.0f);
-        anima.setDuration(1000);// 设置动画显示时间
+        anima.setDuration(500);// 设置动画显示时间
         startview.startAnimation(anima);
         anima.setAnimationListener(new AnimationImpl());
 

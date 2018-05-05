@@ -28,8 +28,8 @@ public class HttpHandler {
 
         try {
             conn = (HttpURLConnection) new URL(path).openConnection();
-            conn.setConnectTimeout(3000); // 设置超时时间
-            conn.setReadTimeout(3000);
+            conn.setConnectTimeout(10000); // 设置超时时间
+            conn.setReadTimeout(10000);
             conn.setDoInput(true);
             conn.setRequestMethod("GET"); // 设置获取信息方式
             conn.setRequestProperty("Charset", "UTF-8"); // 设置接收数据编码格式
@@ -70,8 +70,8 @@ public class HttpHandler {
 
         try {
             conn = (HttpURLConnection) new URL(path).openConnection();
-            conn.setConnectTimeout(3000); // 设置超时时间
-            conn.setReadTimeout(3000);
+            conn.setConnectTimeout(10000); // 设置超时时间
+            conn.setReadTimeout(10000);
             conn.setRequestMethod("POST"); // 设置获取信息方式
             conn.setDoInput(true);
 

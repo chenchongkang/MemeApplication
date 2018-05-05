@@ -5,33 +5,36 @@ package com.example.chenchongkang.memeapplication;
  */
 
 
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.chenchongkang.memeapplication.api.HttpHandler;
-import com.example.chenchongkang.memeapplication.login.LoginActivity;
 import com.example.chenchongkang.memeapplication.model.MemeBean;
+import com.example.chenchongkang.memeapplication.model.UserBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.chenchongkang.memeapplication.api.HttpHandler.executeHttpPost;
 
 public class SelectionFg extends Fragment {
+
     private View rootView;
     private TextView title;
     private ViewPager mViewPaper;
@@ -51,11 +54,9 @@ public class SelectionFg extends Fragment {
     //存放图片的标题
     private String[] titles = new String[]{"大脸系列表情包", "装逼系列表情包", "打钱系列表情包", "心累系列表情包","智商系列表情包"};
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = LayoutInflater.from(getActivity()).inflate(R.layout.selectionfg, container, false);
-
         mViewPaper = (ViewPager) rootView.findViewById(R.id.vp);
 
         //listview的适配器,liatview显示精选表情包
@@ -63,6 +64,19 @@ public class SelectionFg extends Fragment {
         memeBeanList = new ArrayList<>();
         adapter1 = new MyAdepter();
         lv.setAdapter(adapter1);
+
+        final SwipeRefreshLayout swipeRefreshLayout= (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setColorSchemeResources(new int[]{R.color.colorAccent, R.color.colorPrimary});
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                parseJOSNWithGSON();
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
+
         new Thread() {
             public void run() {
                 parseJOSNWithGSON();
@@ -139,6 +153,7 @@ public class SelectionFg extends Fragment {
 
     }
 
+
     private void parseJOSNWithGSON(){
         String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/entitymemelist", null);
         Gson gson = new Gson();
@@ -183,6 +198,15 @@ public class SelectionFg extends Fragment {
 
             }
             //显示数据
+
+            int memeid=memeBean.getMemeID();
+
+            Glide.with(getContext())
+                    .load("http://192.168.43.87:8081/meme/getmemecover/" +memeid)
+                    .placeholder(R.drawable.ic_startone)
+                    .centerCrop()
+                    .into(viewHolder.iv_cover);
+
             viewHolder.iv_name.setText(memeBean.getMemeName());
             viewHolder.iv_intro.setText(memeBean.getMemeIntro());
             String type = memeBean.getClassis();
@@ -206,6 +230,8 @@ public class SelectionFg extends Fragment {
             TextView iv_type;
         }
     }
+
+
     private void showToast() {
         getActivity().runOnUiThread(new Runnable() {
             @Override

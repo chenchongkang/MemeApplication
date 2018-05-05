@@ -20,13 +20,13 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_startthree" />
+            android:src="@drawable/ic_startthree"/>
 
         <TextView
-            android:layout_marginTop="8dp"
             android:layout_width="100dp"
             android:layout_height="24dp"
             android:layout_below="@+id/avatar"
+            android:layout_marginTop="8dp"
             android:text="一点点小任性"
             android:textColor="#ffffff"
             android:textSize="16sp"/>
@@ -58,7 +58,6 @@
                 android:background="@drawable/xiazai"/>
 
             <TextView
-                android:gravity="center_vertical"
                 android:id="@+id/xz_text"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
@@ -66,15 +65,17 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="64dp"
+                android:gravity="center_vertical"
                 android:text="我的下载"
                 android:textColor="#212121"
                 android:textSize="18sp"/>
         </RelativeLayout>
+
         <View
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_width="match_parent"
             android:layout_height="0.2dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="#bdbdbd"
             >
 
@@ -112,11 +113,12 @@
                 />
 
         </RelativeLayout>
+
         <View
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_width="match_parent"
             android:layout_height="0.2dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="#bdbdbd"
             >
 
@@ -140,12 +142,12 @@
                 android:background="@drawable/pingjia"/>
 
             <TextView
-                android:gravity="center_vertical"
                 android:id="@+id/pj_text"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_marginLeft="64dp"
                 android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
                 android:text="评价"
                 android:textColor="#212121"
                 android:textSize="18sp"
@@ -172,23 +174,24 @@
                 android:background="@drawable/shezhi"/>
 
             <TextView
-                android:gravity="center_vertical"
                 android:id="@+id/sz_text"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_marginLeft="64dp"
                 android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
                 android:text="设置"
                 android:textColor="#212121"
                 android:textSize="18sp"
                 />
 
         </RelativeLayout>
+
         <View
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_width="match_parent"
             android:layout_height="0.2dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="#bdbdbd"
             >
 
@@ -212,12 +215,12 @@
                 android:background="@drawable/guanyu"/>
 
             <TextView
-                android:gravity="center_vertical"
                 android:id="@+id/gy_text"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_marginLeft="64dp"
                 android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
                 android:text="关于应用"
                 android:textColor="#212121"
                 android:textSize="18sp"

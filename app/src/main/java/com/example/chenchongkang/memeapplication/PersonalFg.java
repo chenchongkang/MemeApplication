@@ -11,7 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -35,6 +38,7 @@ public class PersonalFg extends Fragment implements OnClickListener{
         relativeLayout_3.setOnClickListener(this);
         RelativeLayout relativeLayout_4=(RelativeLayout)view.findViewById(R.id.rl_gy);
         relativeLayout_4.setOnClickListener(this);
+
         return view;
     }
 

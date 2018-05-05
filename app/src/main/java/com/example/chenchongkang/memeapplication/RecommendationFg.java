@@ -1,7 +1,11 @@
 package com.example.chenchongkang.memeapplication;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +13,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.chenchongkang.memeapplication.api.HttpHandler;
 import com.example.chenchongkang.memeapplication.model.MemeBean;
 import com.google.gson.Gson;
@@ -25,27 +31,56 @@ import java.util.List;
 public class RecommendationFg extends Fragment{
     private List<MemeBean> memeBeanList;
     private MyAdapter adapter2;
+    private int userid;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view=inflater.inflate(R.layout.recommendationfg,container,false);
+
+        SharedPreferences userInfor = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
+        String username=userInfor.getString("username","");
+        Toast.makeText(getActivity(),username+"de推荐", Toast.LENGTH_SHORT).show();
+        // SharedPreferences.Editor userEditor = userInfor.edit();
+        userid=userInfor.getInt("userid",0);
         //listview的适配器,liatview显示推荐表情包
         ListView lv=(ListView)view.findViewById(R.id.listView_recommend);
         memeBeanList = new ArrayList<>();
         adapter2 = new MyAdapter();
         lv.setAdapter(adapter2);
+
+        final SwipeRefreshLayout swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+
+        swipeRefreshLayout.setColorSchemeResources(new int[]{R.color.colorAccent, R.color.colorPrimary});
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+                adapter2.notifyDataSetChanged();
+
+                parseJOSNWithGSON();
+
+            }
+        });
+
+
+
         new Thread() {
             public void run() {
                 parseJOSNWithGSON();
             }
         }.start();
+
+
         return view;
     }
-//    cheshi
+
     private void parseJOSNWithGSON(){
-        String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/recommendlists/"+6, null);
+        String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/recommendlists/"+userid, null);
         Gson gson = new Gson();
         memeBeanList = gson.fromJson(jsondata,new TypeToken<List<MemeBean>>(){}.getType());
         showToast();
     }
+
+
     private void showToast() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -59,6 +94,9 @@ public class RecommendationFg extends Fragment{
 
         @Override
         public int getCount() {
+            if(memeBeanList==null){
+                return 0;
+            }
             return memeBeanList.size();
         }
 
@@ -74,9 +112,10 @@ public class RecommendationFg extends Fragment{
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            MemeBean memeBean = memeBeanList.get(position);
-            View view;
+           MemeBean memeBean = memeBeanList.get(position);
+           View view;
            MyAdapter.ViewHolder viewHolder;
+
             if (convertView==null){
                 viewHolder = new MyAdapter.ViewHolder();
                 view=LayoutInflater.from(getContext()).inflate(R.layout.selectionfg_xxk,null);
@@ -91,6 +130,12 @@ public class RecommendationFg extends Fragment{
 
             }
             //显示数据
+            int memeid=memeBean.getMemeID();
+            Glide.with(getContext())
+                    .load("http://192.168.43.87:8081/meme/getmemecover/" +memeid)
+                    .placeholder(R.drawable.ic_startone)
+                    .centerCrop()
+                    .into(viewHolder.iv_cover);
             viewHolder.iv_name.setText(memeBean.getMemeName());
             viewHolder.iv_intro.setText(memeBean.getMemeIntro());
             String type = memeBean.getClassis();
@@ -106,6 +151,7 @@ public class RecommendationFg extends Fragment{
             }
             return view;
         }
+
 
         class ViewHolder{
             ImageView iv_cover;
