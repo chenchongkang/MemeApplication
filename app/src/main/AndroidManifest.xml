@@ -31,6 +31,8 @@
         </activity>
         <activity android:name=".UserinfoActivity">
         </activity>
+        <activity android:name=".Memepicture">
+        </activity>
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

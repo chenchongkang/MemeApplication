@@ -14,6 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -74,9 +77,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         titleLeftImv = (CircleImageView) findViewById(R.id.title_imv);
 
         Glide.with(this)
-                .load("http://192.168.43.87:8081/meme/getmemecover/1")
+                .load("http://172.24.7.1:8081/meme/getmemecover/1")
                 .placeholder(R.drawable.ic_startone)
-                .into(titleLeftImv);
+//                .into(titleLeftImv);
+        .into(new SimpleTarget<GlideDrawable>() {
+            @Override
+            public void onResourceReady(GlideDrawable resource,
+                                        GlideAnimation<? super GlideDrawable> glideAnimation) {
+                titleLeftImv.setImageDrawable(resource);
+            }
+        });
 
         titleTv = (TextView) findViewById(R.id.title_text_tv);
         titleTv.setText("表情包推荐系统");

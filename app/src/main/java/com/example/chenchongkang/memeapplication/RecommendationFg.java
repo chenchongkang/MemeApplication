@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.bumptech.glide.Glide;
 import com.example.chenchongkang.memeapplication.api.HttpHandler;
 import com.example.chenchongkang.memeapplication.model.MemeBean;
@@ -29,6 +30,8 @@ import java.util.List;
  */
 
 public class RecommendationFg extends Fragment{
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     private List<MemeBean> memeBeanList;
     private MyAdapter adapter2;
     private int userid;
@@ -47,19 +50,19 @@ public class RecommendationFg extends Fragment{
         adapter2 = new MyAdapter();
         lv.setAdapter(adapter2);
 
-        final SwipeRefreshLayout swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
-
+        swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         swipeRefreshLayout.setColorSchemeResources(new int[]{R.color.colorAccent, R.color.colorPrimary});
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(false);
-                adapter2.notifyDataSetChanged();
-
-                parseJOSNWithGSON();
-
+                new Thread() {
+                    public void run() {
+                        parseJOSNWithGSON();
+                    }
+                }.start();
             }
         });
+
 
 
 
@@ -74,7 +77,7 @@ public class RecommendationFg extends Fragment{
     }
 
     private void parseJOSNWithGSON(){
-        String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/recommendlists/"+userid, null);
+        String jsondata = HttpHandler.executeHttpPost("http://10.64.70.53:8081/meme/recommendlists/"+userid, null);
         Gson gson = new Gson();
         memeBeanList = gson.fromJson(jsondata,new TypeToken<List<MemeBean>>(){}.getType());
         showToast();
@@ -85,6 +88,7 @@ public class RecommendationFg extends Fragment{
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                swipeRefreshLayout.setRefreshing(false);
                 adapter2.notifyDataSetChanged();
             }
         });
@@ -132,7 +136,7 @@ public class RecommendationFg extends Fragment{
             //显示数据
             int memeid=memeBean.getMemeID();
             Glide.with(getContext())
-                    .load("http://192.168.43.87:8081/meme/getmemecover/" +memeid)
+                    .load("http://10.64.70.53:8081/meme/getmemecover/" +memeid)
                     .placeholder(R.drawable.ic_startone)
                     .centerCrop()
                     .into(viewHolder.iv_cover);
@@ -159,5 +163,7 @@ public class RecommendationFg extends Fragment{
             TextView iv_intro;
             TextView iv_type;
         }
+
+        }
     }
-}
+

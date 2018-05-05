@@ -6,21 +6,26 @@ package com.example.chenchongkang.memeapplication;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.chenchongkang.memeapplication.api.HttpHandler;
@@ -31,11 +36,12 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Future;
 
 
 public class SelectionFg extends Fragment {
 
-    private View rootView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView title;
     private ViewPager mViewPaper;
     //图片列表
@@ -52,36 +58,49 @@ public class SelectionFg extends Fragment {
     //存放图片的id
     private int[] imageIds = new int[]{R.drawable.timg1, R.drawable.timg2, R.drawable.timg3, R.drawable.timg4, R.drawable.timg5};
     //存放图片的标题
-    private String[] titles = new String[]{"大脸系列表情包", "装逼系列表情包", "打钱系列表情包", "心累系列表情包","智商系列表情包"};
+    private String[] titles = new String[]{"大脸系列表情包", "装逼系列表情包", "打钱系列表情包", "心累系列表情包", "智商系列表情包"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.selectionfg, container, false);
+        View rootView = LayoutInflater.from(getActivity()).inflate(R.layout.selectionfg, container, false);
         mViewPaper = (ViewPager) rootView.findViewById(R.id.vp);
 
         //listview的适配器,liatview显示精选表情包
-        ListView lv=(ListView)rootView.findViewById(R.id.list_xxk);
+        ListView lv = (ListView) rootView.findViewById(R.id.list_xxk);
         memeBeanList = new ArrayList<>();
         adapter1 = new MyAdepter();
         lv.setAdapter(adapter1);
 
-        final SwipeRefreshLayout swipeRefreshLayout= (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_container);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
         swipeRefreshLayout.setColorSchemeResources(new int[]{R.color.colorAccent, R.color.colorPrimary});
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-                parseJOSNWithGSON();
-                swipeRefreshLayout.setRefreshing(false);
-
+            new Thread() {
+                    public void run() {
+                        parseJOSNWithGSON();
+                    }
+                }.start();
             }
         });
 
-        new Thread() {
+         new Thread() {
             public void run() {
                 parseJOSNWithGSON();
             }
         }.start();
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MemeBean memeBean1 =memeBeanList.get(i);
+                Intent intent = new Intent(getActivity(), Memepicture.class);
+                Log.e("wewe",memeBean1.getClassis());
+                int abc=memeBean1.getMemeID();
+                intent.putExtra("memeid",abc);
+                startActivity(intent);
+            }
+        });
 
         //显示的图片
         images = new ArrayList<>();
@@ -90,7 +109,6 @@ public class SelectionFg extends Fragment {
             imageView.setBackgroundResource(imageIds[i]);
             images.add(imageView);
         }
-
         //显示的小点
         dots = new ArrayList<>();
         dots.add(rootView.findViewById(R.id.dot_0));
@@ -122,10 +140,10 @@ public class SelectionFg extends Fragment {
 
             }
         });
-
         return rootView;
     }
-//  图片适配器
+
+        //  图片适配器
     private class ViewPagerAdapter extends PagerAdapter {
 
         @Override
@@ -153,16 +171,15 @@ public class SelectionFg extends Fragment {
 
     }
 
-
-    private void parseJOSNWithGSON(){
-        String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/entitymemelist", null);
+    private void parseJOSNWithGSON() {
+        String jsondata = HttpHandler.executeHttpPost("http://10.64.70.53:8081/meme/entitymemelist", null);
         Gson gson = new Gson();
-        memeBeanList = gson.fromJson(jsondata,new TypeToken<List<MemeBean>>(){}.getType());
+        memeBeanList = gson.fromJson(jsondata, new TypeToken<List<MemeBean>>() {
+        }.getType());
         showToast();
     }
 
-
-    private class MyAdepter extends BaseAdapter{
+    private class MyAdepter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -184,25 +201,25 @@ public class SelectionFg extends Fragment {
             MemeBean memeBean = memeBeanList.get(position);
             View view;
             ViewHolder viewHolder;
-            if (convertView==null){
+            if (convertView == null) {
                 viewHolder = new ViewHolder();
-                view=LayoutInflater.from(getContext()).inflate(R.layout.selectionfg_xxk,null);
-                viewHolder.iv_cover  = (ImageView) view.findViewById(R.id.iv_select_cover);
-                viewHolder.iv_name   = (TextView) view.findViewById(R.id.tv_select_name);
-                viewHolder.iv_intro  = (TextView) view.findViewById(R.id.tv_select_intro);
-                viewHolder.iv_type   = (TextView) view.findViewById(R.id.bt_select_type);
+                view = LayoutInflater.from(getContext()).inflate(R.layout.selectionfg_xxk, null);
+                viewHolder.iv_cover = (ImageView) view.findViewById(R.id.iv_select_cover);
+                viewHolder.iv_name = (TextView) view.findViewById(R.id.tv_select_name);
+                viewHolder.iv_intro = (TextView) view.findViewById(R.id.tv_select_intro);
+                viewHolder.iv_type = (TextView) view.findViewById(R.id.bt_select_type);
                 view.setTag(viewHolder);
-            }else{
-                view=convertView;
+
+            } else {
+                view = convertView;
                 viewHolder = (ViewHolder) view.getTag();
 
             }
             //显示数据
 
-            int memeid=memeBean.getMemeID();
+            int memeid = memeBean.getMemeID();
 
-            Glide.with(getContext())
-                    .load("http://192.168.43.87:8081/meme/getmemecover/" +memeid)
+            Glide.with(getContext()).load("http://10.64.70.53:8081/meme/getmemecover/" + memeid)
                     .placeholder(R.drawable.ic_startone)
                     .centerCrop()
                     .into(viewHolder.iv_cover);
@@ -210,20 +227,17 @@ public class SelectionFg extends Fragment {
             viewHolder.iv_name.setText(memeBean.getMemeName());
             viewHolder.iv_intro.setText(memeBean.getMemeIntro());
             String type = memeBean.getClassis();
-            if("type2".equals(type)){
+            if ("type2".equals(type)) {
                 viewHolder.iv_type.setText("暴漫");
-            }
-            else if("type3".equals(type))
-            {
+            } else if ("type3".equals(type)) {
                 viewHolder.iv_type.setText("明星");
-            }
-            else {
-            viewHolder.iv_type.setText(type);
+            } else {
+                viewHolder.iv_type.setText(type);
             }
             return view;
         }
 
-        class ViewHolder{
+        class ViewHolder {
             ImageView iv_cover;
             TextView iv_name;
             TextView iv_intro;
@@ -231,11 +245,11 @@ public class SelectionFg extends Fragment {
         }
     }
 
-
     private void showToast() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                swipeRefreshLayout.setRefreshing(false);
                 adapter1.notifyDataSetChanged();
             }
         });

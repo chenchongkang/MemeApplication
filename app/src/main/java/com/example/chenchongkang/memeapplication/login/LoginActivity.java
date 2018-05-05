@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        String s = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/login", jsonObject.toString());
+                        String s = HttpHandler.executeHttpPost("http://10.64.70.53:8081/meme/login", jsonObject.toString());
                         if ("success".equals(s)) {
                             mEditor.putString("user_name", name);
                             mEditor.putString("user_password", pass);
@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }
-                            String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/username/" +a, null);
+                            String jsondata = HttpHandler.executeHttpPost("http://10.64.70.53:8081/meme/username/" +a, null);
                             Message message =new Message();
                             message.what =UPDATE_A;
                             message.obj = jsondata;

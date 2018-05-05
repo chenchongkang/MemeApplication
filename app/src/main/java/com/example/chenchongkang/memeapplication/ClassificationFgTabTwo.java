@@ -4,6 +4,7 @@ package com.example.chenchongkang.memeapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import java.util.List;
  */
 
 public class ClassificationFgTabTwo extends Fragment implements View.OnClickListener {
+    private SwipeRefreshLayout swipeRefreshLayout;
     private List<MemeBean> memeBeanList;
     private MyAdapter adapter;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +38,18 @@ public class ClassificationFgTabTwo extends Fragment implements View.OnClickList
         memeBeanList = new ArrayList<>();
         adapter = new MyAdapter();
         lv.setAdapter(adapter);
+        swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setColorSchemeResources(new int[]{R.color.colorAccent, R.color.colorPrimary});
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread() {
+                    public void run() {
+                        parseJOSNWithGSON();
+                    }
+                }.start();
+            }
+        });
         new Thread() {
             public void run() {
                 parseJOSNWithGSON();
@@ -44,7 +58,7 @@ public class ClassificationFgTabTwo extends Fragment implements View.OnClickList
         return view;
     }
     private void parseJOSNWithGSON(){
-        String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/entityhottestmemelist", null);
+        String jsondata = HttpHandler.executeHttpPost("http://172.24.7.1:8081/meme/entityhottestmemelist", null);
         Gson gson = new Gson();
         memeBeanList = gson.fromJson(jsondata,new TypeToken<List<MemeBean>>(){}.getType());
         showToast();
@@ -53,6 +67,7 @@ public class ClassificationFgTabTwo extends Fragment implements View.OnClickList
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                swipeRefreshLayout.setRefreshing(false);
                 adapter.notifyDataSetChanged();
             }
         });
@@ -113,7 +128,7 @@ public class ClassificationFgTabTwo extends Fragment implements View.OnClickList
             int memeid=memeBean.getMemeID();
 
             Glide.with(getContext())
-                    .load("http://192.168.43.87:8081/meme/getmemecover/" +memeid)
+                    .load("http://172.24.7.1:8081/meme/getmemecover/" +memeid)
                     .placeholder(R.drawable.ic_startone)
                     .centerCrop()
                     .into(viewHolder.iv_cover);
