@@ -13,7 +13,7 @@
         android:background="#424242">
 
         <ImageButton
-            android:id="@+id/return_4"
+            android:id="@+id/return_Evaluation"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentLeft="true"
@@ -63,10 +63,11 @@
             android:layout_marginTop="8dp"
             android:numStars="5"
             android:progressTint="@android:color/holo_orange_dark"
-            android:rating="5"/>
+            android:rating="0"/>
 
         <TextView
             android:id="@+id/show"
+            android:rating="5.0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -78,6 +79,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/submit_Evaluation"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"

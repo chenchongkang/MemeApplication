@@ -66,7 +66,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="64dp"
                 android:gravity="center_vertical"
-                android:text="我的下载"
+                android:text="我的评价"
                 android:textColor="#212121"
                 android:textSize="18sp"/>
         </RelativeLayout>
@@ -148,7 +148,7 @@
                 android:layout_marginLeft="64dp"
                 android:layout_marginTop="12dp"
                 android:gravity="center_vertical"
-                android:text="评价"
+                android:text="应用评价待开发"
                 android:textColor="#212121"
                 android:textSize="18sp"
                 />

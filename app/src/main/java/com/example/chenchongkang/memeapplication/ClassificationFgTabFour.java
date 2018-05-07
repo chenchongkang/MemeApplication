@@ -1,12 +1,15 @@
 package com.example.chenchongkang.memeapplication;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,18 +29,19 @@ import java.util.List;
  * Created by chenchongkang on 2018/3/10.
  */
 
-public class ClassificationFgTabFour extends Fragment implements View.OnClickListener{
+public class ClassificationFgTabFour extends Fragment implements View.OnClickListener {
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<MemeBean> memeBeanList;
     private MyAdapter adapter;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab4, container, false);
         //listview的适配器,liatview显示推荐表情包
-        ListView lv=(ListView)view.findViewById(R.id.lv_mingxing);
+        ListView lv = (ListView) view.findViewById(R.id.lv_mingxing);
         memeBeanList = new ArrayList<>();
         adapter = new MyAdapter();
         lv.setAdapter(adapter);
-        swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         swipeRefreshLayout.setColorSchemeResources(new int[]{R.color.colorAccent, R.color.colorPrimary});
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -54,12 +58,26 @@ public class ClassificationFgTabFour extends Fragment implements View.OnClickLis
                 parseJOSNWithGSON();
             }
         }.start();
-    return view;
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MemeBean memeBean1 =memeBeanList.get(i);
+                Intent intent = new Intent(getActivity(), Memepicture.class);
+                Log.e("wewe",memeBean1.getClassis());
+                int abc=memeBean1.getMemeID();
+                intent.putExtra("memeid",abc);
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
-    private void parseJOSNWithGSON(){
-        String jsondata = HttpHandler.executeHttpPost("http://10.64.70.53:8081/meme/entitymemeclassis/"+"type3", null);
+
+    private void parseJOSNWithGSON() {
+        String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/entitymemeclassis/" + "type3", null);
         Gson gson = new Gson();
-        memeBeanList = gson.fromJson(jsondata,new TypeToken<List<MemeBean>>(){}.getType());
+        memeBeanList = gson.fromJson(jsondata, new TypeToken<List<MemeBean>>() {
+        }.getType());
         showToast();
     }
 
@@ -77,6 +95,7 @@ public class ClassificationFgTabFour extends Fragment implements View.OnClickLis
     public void onClick(View view) {
 
     }
+
     private class MyAdapter extends BaseAdapter {
 
         @Override
@@ -99,44 +118,40 @@ public class ClassificationFgTabFour extends Fragment implements View.OnClickLis
             MemeBean memeBean = memeBeanList.get(position);
             View view;
             MyAdapter.ViewHolder viewHolder;
-            if (convertView==null){
+            if (convertView == null) {
                 viewHolder = new MyAdapter.ViewHolder();
-                view=LayoutInflater.from(getContext()).inflate(R.layout.selectionfg_xxk,null);
-                viewHolder.iv_cover  = (ImageView) view.findViewById(R.id.iv_select_cover);
-                viewHolder.iv_name   = (TextView) view.findViewById(R.id.tv_select_name);
-                viewHolder.iv_intro  = (TextView) view.findViewById(R.id.tv_select_intro);
-                viewHolder.iv_type   = (TextView) view.findViewById(R.id.bt_select_type);
+                view = LayoutInflater.from(getContext()).inflate(R.layout.selectionfg_xxk, null);
+                viewHolder.iv_cover = (ImageView) view.findViewById(R.id.iv_select_cover);
+                viewHolder.iv_name = (TextView) view.findViewById(R.id.tv_select_name);
+                viewHolder.iv_intro = (TextView) view.findViewById(R.id.tv_select_intro);
+                viewHolder.iv_type = (TextView) view.findViewById(R.id.bt_select_type);
                 view.setTag(viewHolder);
-            }else{
-                view=convertView;
+            } else {
+                view = convertView;
                 viewHolder = (MyAdapter.ViewHolder) view.getTag();
 
             }
             //显示数据
-            int memeid=memeBean.getMemeID();
+            int memeid = memeBean.getMemeID();
 
-            Glide.with(getContext())
-                    .load("http://172.24.7.1/meme/getmemecover/" +memeid)
+            Glide.with(getContext()).load("http://192.168.43.87:8081/meme/getmemecover/" + memeid)
                     .placeholder(R.drawable.ic_startone)
                     .centerCrop()
                     .into(viewHolder.iv_cover);
             viewHolder.iv_name.setText(memeBean.getMemeName());
             viewHolder.iv_intro.setText(memeBean.getMemeIntro());
             String type = memeBean.getClassis();
-            if("type2".equals(type)){
+            if ("type2".equals(type)) {
                 viewHolder.iv_type.setText("暴漫");
-            }
-            else if("type3".equals(type))
-            {
+            } else if ("type3".equals(type)) {
                 viewHolder.iv_type.setText("明星");
-            }
-            else {
+            } else {
                 viewHolder.iv_type.setText(type);
             }
             return view;
         }
 
-        class ViewHolder{
+        class ViewHolder {
             ImageView iv_cover;
             TextView iv_name;
             TextView iv_intro;

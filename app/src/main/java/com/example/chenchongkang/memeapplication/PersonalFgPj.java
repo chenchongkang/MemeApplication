@@ -22,7 +22,7 @@ public class PersonalFgPj extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personalfg_pj);
-        ImageButton imageButton = (ImageButton) findViewById(R.id.return_4);
+        ImageButton imageButton = (ImageButton) findViewById(R.id.return_Evaluation);
         imageButton.setOnClickListener(this);
 
         show = (TextView) findViewById(R.id.show);
@@ -52,7 +52,7 @@ public class PersonalFgPj extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.return_4:
+            case R.id.return_Evaluation:
                 finish();
                 break;
             default:

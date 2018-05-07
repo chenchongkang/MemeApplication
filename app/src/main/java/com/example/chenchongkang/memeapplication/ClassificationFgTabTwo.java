@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -55,10 +57,21 @@ public class ClassificationFgTabTwo extends Fragment implements View.OnClickList
                 parseJOSNWithGSON();
             }
         }.start();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MemeBean memeBean1 =memeBeanList.get(i);
+                Intent intent = new Intent(getActivity(), Memepicture.class);
+                Log.e("wewe",memeBean1.getClassis());
+                int abc=memeBean1.getMemeID();
+                intent.putExtra("memeid",abc);
+                startActivity(intent);
+            }
+        });
         return view;
     }
     private void parseJOSNWithGSON(){
-        String jsondata = HttpHandler.executeHttpPost("http://172.24.7.1:8081/meme/entityhottestmemelist", null);
+        String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/entityhottestmemelist", null);
         Gson gson = new Gson();
         memeBeanList = gson.fromJson(jsondata,new TypeToken<List<MemeBean>>(){}.getType());
         showToast();
@@ -128,7 +141,7 @@ public class ClassificationFgTabTwo extends Fragment implements View.OnClickList
             int memeid=memeBean.getMemeID();
 
             Glide.with(getContext())
-                    .load("http://172.24.7.1:8081/meme/getmemecover/" +memeid)
+                    .load("http://192.168.43.87:8081/meme/getmemecover/" +memeid)
                     .placeholder(R.drawable.ic_startone)
                     .centerCrop()
                     .into(viewHolder.iv_cover);

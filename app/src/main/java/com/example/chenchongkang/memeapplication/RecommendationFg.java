@@ -6,9 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -42,8 +44,8 @@ public class RecommendationFg extends Fragment{
         SharedPreferences userInfor = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
         String username=userInfor.getString("username","");
         Toast.makeText(getActivity(),username+"de推荐", Toast.LENGTH_SHORT).show();
-        // SharedPreferences.Editor userEditor = userInfor.edit();
         userid=userInfor.getInt("userid",0);
+
         //listview的适配器,liatview显示推荐表情包
         ListView lv=(ListView)view.findViewById(R.id.listView_recommend);
         memeBeanList = new ArrayList<>();
@@ -65,19 +67,29 @@ public class RecommendationFg extends Fragment{
 
 
 
-
         new Thread() {
             public void run() {
                 parseJOSNWithGSON();
             }
         }.start();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MemeBean memeBean1 =memeBeanList.get(i);
+                Intent intent = new Intent(getActivity(), Memepicture.class);
+                Log.e("wewe",memeBean1.getClassis());
+                int abc=memeBean1.getMemeID();
+                intent.putExtra("memeid",abc);
+                startActivity(intent);
+            }
+        });
 
 
         return view;
     }
 
     private void parseJOSNWithGSON(){
-        String jsondata = HttpHandler.executeHttpPost("http://10.64.70.53:8081/meme/recommendlists/"+userid, null);
+        String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/recommendlists/"+userid, null);
         Gson gson = new Gson();
         memeBeanList = gson.fromJson(jsondata,new TypeToken<List<MemeBean>>(){}.getType());
         showToast();
@@ -136,7 +148,7 @@ public class RecommendationFg extends Fragment{
             //显示数据
             int memeid=memeBean.getMemeID();
             Glide.with(getContext())
-                    .load("http://10.64.70.53:8081/meme/getmemecover/" +memeid)
+                    .load("http://192.168.43.87:8081/meme/getmemecover/" +memeid)
                     .placeholder(R.drawable.ic_startone)
                     .centerCrop()
                     .into(viewHolder.iv_cover);

@@ -33,6 +33,8 @@
         </activity>
         <activity android:name=".Memepicture">
         </activity>
+        <activity android:name=".MemeEvaluation">
+        </activity>
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

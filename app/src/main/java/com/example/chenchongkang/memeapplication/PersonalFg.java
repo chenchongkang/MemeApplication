@@ -4,7 +4,9 @@ package com.example.chenchongkang.memeapplication;
  * Created by chenchongkang on 2018/2/3.
  */
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -26,8 +31,8 @@ public class PersonalFg extends Fragment implements OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.personalfg,container,false);
-        CircleImageView circleImageView=(CircleImageView) view.findViewById(R.id.avatar);
-        circleImageView.setOnClickListener(this);
+        final CircleImageView titleLeftImv=(CircleImageView) view.findViewById(R.id.avatar);
+        titleLeftImv.setOnClickListener(this);
         RelativeLayout relativeLayout=(RelativeLayout) view.findViewById(R.id.rl_sz);
         relativeLayout.setOnClickListener(this);
         RelativeLayout relativeLayout_1=(RelativeLayout)view.findViewById(R.id.rl_xz);
@@ -38,6 +43,18 @@ public class PersonalFg extends Fragment implements OnClickListener{
         relativeLayout_3.setOnClickListener(this);
         RelativeLayout relativeLayout_4=(RelativeLayout)view.findViewById(R.id.rl_gy);
         relativeLayout_4.setOnClickListener(this);
+        SharedPreferences userInfor = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
+        int userid = userInfor.getInt("userid", 0);
+
+        Glide.with(this).load("http://192.168.43.87:8081/meme/getuseravatar/" + userid).placeholder(R.drawable.ic_startone)
+//                .into(titleLeftImv);
+                .into(new SimpleTarget<GlideDrawable>() {
+                    @Override
+                    public void onResourceReady(GlideDrawable resource,
+                                                GlideAnimation<? super GlideDrawable> glideAnimation) {
+                        titleLeftImv.setImageDrawable(resource);
+                    }
+                });
 
         return view;
     }

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#e0e0e0e0"
     android:orientation="vertical">
 
@@ -34,15 +35,13 @@
             android:textSize="20sp"/>
 
     </RelativeLayout>
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
@@ -50,6 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="@drawable/timg3"
+                android:scaleType="fitXY"
                 />
 
             <RelativeLayout
@@ -166,16 +166,19 @@
                 android:layout_height="wrap_content"/>
 
             <GridView
-                android:id="@+id/gridView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/gridView_a"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:layout_marginTop="10dp"
                 android:horizontalSpacing="10dp"
                 android:numColumns="4"
-                android:verticalSpacing="10dp">
+                android:verticalSpacing="10dp"
+                tools:listitem="@layout/gridview_item">
             </GridView>
 
 
         </LinearLayout>
     </ScrollView>
+
+
 </LinearLayout>

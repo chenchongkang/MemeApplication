@@ -36,7 +36,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Future;
 
 
 public class SelectionFg extends Fragment {
@@ -172,7 +171,7 @@ public class SelectionFg extends Fragment {
     }
 
     private void parseJOSNWithGSON() {
-        String jsondata = HttpHandler.executeHttpPost("http://10.64.70.53:8081/meme/entitymemelist", null);
+        String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/entitymemelist", null);
         Gson gson = new Gson();
         memeBeanList = gson.fromJson(jsondata, new TypeToken<List<MemeBean>>() {
         }.getType());
@@ -219,7 +218,7 @@ public class SelectionFg extends Fragment {
 
             int memeid = memeBean.getMemeID();
 
-            Glide.with(getContext()).load("http://10.64.70.53:8081/meme/getmemecover/" + memeid)
+            Glide.with(getContext()).load("http://192.168.43.87:8081/meme/getmemecover/" + memeid)
                     .placeholder(R.drawable.ic_startone)
                     .centerCrop()
                     .into(viewHolder.iv_cover);

@@ -2,6 +2,7 @@ package com.example.chenchongkang.memeapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity; // 注意这里我们导入的V4的包，不要导成app的包了
 import android.support.v4.app.FragmentManager;
@@ -61,11 +62,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
-        Intent intent=getIntent();
-        username=intent.getStringExtra("userName");
+        Intent intent = getIntent();
+        username = intent.getStringExtra("userName");
         initView(); // 初始化界面控件
         setChioceItem(0); // 初始化页面加载时显示第一个选项卡
-        Toast.makeText(MainActivity.this, "你好！帅逼"+username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "你好！帅逼" + username, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -74,19 +75,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      */
     private void initView() {
 // 初始化页面标题栏
+        SharedPreferences userInfor = this.getSharedPreferences("config", Context.MODE_PRIVATE);
+        int userid = userInfor.getInt("userid", 0);
         titleLeftImv = (CircleImageView) findViewById(R.id.title_imv);
 
-        Glide.with(this)
-                .load("http://172.24.7.1:8081/meme/getmemecover/1")
-                .placeholder(R.drawable.ic_startone)
+        Glide.with(this).load("http://192.168.43.87:8081/meme/getuseravatar/" + userid).placeholder(R.drawable.ic_startone)
 //                .into(titleLeftImv);
-        .into(new SimpleTarget<GlideDrawable>() {
-            @Override
-            public void onResourceReady(GlideDrawable resource,
-                                        GlideAnimation<? super GlideDrawable> glideAnimation) {
-                titleLeftImv.setImageDrawable(resource);
-            }
-        });
+                .into(new SimpleTarget<GlideDrawable>() {
+                    @Override
+                    public void onResourceReady(GlideDrawable resource,
+                        GlideAnimation<? super GlideDrawable> glideAnimation) {
+                        titleLeftImv.setImageDrawable(resource);
+                    }
+                });
 
         titleTv = (TextView) findViewById(R.id.title_text_tv);
         titleTv.setText("表情包推荐系统");
@@ -240,7 +241,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return username;
     }
 }
