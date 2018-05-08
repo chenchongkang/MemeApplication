@@ -46,8 +46,6 @@ public class MemeEvaluation extends AppCompatActivity implements View.OnClickLis
 
                 ratingBar_Small.setRating(rating);
                 evaluation =rating;
-                Toast.makeText(MemeEvaluation.this, "rating:"+String.valueOf(rating),
-                        Toast.LENGTH_LONG).show();
             }});
         SharedPreferences userInfor = this.getSharedPreferences("config", Context.MODE_PRIVATE);
         userid=userInfor.getInt("userid",0);
@@ -76,7 +74,10 @@ public class MemeEvaluation extends AppCompatActivity implements View.OnClickLis
                         }
                         String s = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/addevaluation", jsonObject.toString());
                         if ("success".equals(s)) {
-                        finish();
+                            finish();
+//                            Intent intent = new Intent(MemeEvaluation.this, Memepicture.class);
+//                            intent.putExtra("memeid",memeid);
+//                            startActivity(intent);
                         } else {
                             showToast(s);
                         }

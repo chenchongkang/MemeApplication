@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.chenchongkang.memeapplication.api.HttpHandler;
 import com.example.chenchongkang.memeapplication.login.LoginActivity;
+import com.example.chenchongkang.memeapplication.model.EvaluationBean;
 import com.example.chenchongkang.memeapplication.model.MemeBean;
 import com.example.chenchongkang.memeapplication.model.PictureBean;
 import com.example.chenchongkang.memeapplication.model.UserBean;
@@ -36,7 +39,9 @@ import java.util.List;
 public class Memepicture extends AppCompatActivity implements View.OnClickListener {
     private MemeBean memeBean;
     private List<PictureBean> pictureBeanslist;
-    private int a;
+    private EvaluationBean evaluation;
+    private int a,userid;
+    private Button memeEvaluation;
     private MyAdapter adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +49,14 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
         //隐藏ActionBar
         getSupportActionBar().hide();
         setContentView(R.layout.zx_meme);
+
         ImageView imageView = (ImageView) findViewById(R.id.return_3);
         imageView.setOnClickListener(this);
         Intent intent = getIntent();
         a = intent.getIntExtra("memeid", 0);
         ImageView memeCover = (ImageView) findViewById(R.id.meme_cover);
         Glide.with(this).load("http://192.168.43.87:8081/meme/getmemecover/" + a).placeholder(R.drawable.ic_startone).into(memeCover);
-        Button memeEvaluation = (Button)findViewById(R.id.meme_evaluation);
+        memeEvaluation = (Button)findViewById(R.id.meme_evaluation);
         memeEvaluation.setOnClickListener(this);
 
         pictureBeanslist = new ArrayList<>();
@@ -63,12 +69,21 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
         new Thread() {
             public void run() {
                 parseJOSNWithGSONpicture();
+
             }
         }.start();
+
+        new Thread(){
+            public void run(){
+                parseJOSNWithGSONEvaluation();
+            }
+        }.start();
+
 
         GridView gv = (GridView) findViewById(R.id.gridView_a);
         adapter = new MyAdapter();
         gv.setAdapter(adapter);
+
     }
 
     private void parseJOSNWithGSON() {
@@ -86,6 +101,26 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
         }.getType());
         pictureBeanslist = mpictureBeanslist;
         showToastpicture();
+    }
+
+    private void parseJOSNWithGSONEvaluation(){
+        SharedPreferences userInfor = this.getSharedPreferences("config", Context.MODE_PRIVATE);
+        userid=userInfor.getInt("userid",0);
+            String jsondata = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/evaluations/" + userid+"/"+a, null);
+            Gson gson = new Gson();
+            evaluation = gson.fromJson(jsondata,EvaluationBean.class);
+        if (evaluation!=null){
+            showToastbutton();
+        }
+    }
+    private void showToastbutton() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                memeEvaluation.setText("已评价");
+            }
+
+        });
     }
 
     private void showToast(final MemeBean ab) {
@@ -124,6 +159,7 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
     }
 
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -131,9 +167,26 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.meme_evaluation:
+                if (evaluation!=null){
+                    AlertDialog.Builder builder= new AlertDialog.Builder(Memepicture.this);
+                    builder.setTitle("表情包推挤应用");
+                    builder.setMessage("这个表情包你已经评价过了！");
+                    builder.setIcon(R.mipmap.ic_laucher_memecover);
+
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    builder.show();
+
+
+                }
+                if (evaluation==null){
                 Intent intent = new Intent(Memepicture.this, MemeEvaluation.class);
                 intent.putExtra("memeid",memeBean.getMemeID());
                 startActivity(intent);
+                }
                 break;
             default:
                 break;
@@ -174,7 +227,9 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
             }
             //显示数据
             int imgid = pictureBean.getImgID();
-            Glide.with(Memepicture.this).load("http://192.168.43.87:8081/meme/getpictureid/" + imgid).placeholder(R.drawable.ic_startone).centerCrop().into(viewHolder.iv_cover);
+            Glide.with(Memepicture.this).load("http://192.168.43.87:8081/meme/getpictureid/" + imgid)
+                    .placeholder(R.drawable.ic_startone)
+                    .centerCrop().into(viewHolder.iv_cover);
             return view;
         }
 
