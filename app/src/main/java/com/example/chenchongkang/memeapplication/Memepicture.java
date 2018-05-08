@@ -1,35 +1,28 @@
 package com.example.chenchongkang.memeapplication;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.chenchongkang.memeapplication.api.HttpHandler;
-import com.example.chenchongkang.memeapplication.login.LoginActivity;
 import com.example.chenchongkang.memeapplication.model.EvaluationBean;
 import com.example.chenchongkang.memeapplication.model.MemeBean;
 import com.example.chenchongkang.memeapplication.model.PictureBean;
-import com.example.chenchongkang.memeapplication.model.UserBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -43,6 +36,7 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
     private int a,userid;
     private Button memeEvaluation;
     private MyAdapter adapter;
+    private ImageView memeCover;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +48,16 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
         imageView.setOnClickListener(this);
         Intent intent = getIntent();
         a = intent.getIntExtra("memeid", 0);
-        ImageView memeCover = (ImageView) findViewById(R.id.meme_cover);
-        Glide.with(this).load("http://192.168.43.87:8081/meme/getmemecover/" + a).placeholder(R.drawable.ic_startone).into(memeCover);
+        //图片保存
+        memeCover = (ImageView) findViewById(R.id.meme_cover);
+        Glide.with(this).load("http://192.168.43.87:8081/meme/getmemecover/" + a)
+                .placeholder(R.drawable.ic_startone)
+                .into(memeCover);
+
         memeEvaluation = (Button)findViewById(R.id.meme_evaluation);
         memeEvaluation.setOnClickListener(this);
-
         pictureBeanslist = new ArrayList<>();
+
         new Thread() {
             public void run() {
                 parseJOSNWithGSON();
@@ -79,10 +77,20 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
             }
         }.start();
 
-
         GridView gv = (GridView) findViewById(R.id.gridView_a);
         adapter = new MyAdapter();
         gv.setAdapter(adapter);
+        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                PictureBean pickBean1 =pictureBeanslist.get(i);
+                Intent intent = new Intent(Memepicture.this, Picturedownload.class);
+                Log.e("wewe",pickBean1.getImgID()+"");
+                int abc=pickBean1.getImgID();
+                intent.putExtra("imgid",abc);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -91,7 +99,6 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
         Gson gson = new Gson();
         memeBean = gson.fromJson(jsondata, MemeBean.class);
         showToast(memeBean);
-
     }
 
     private void parseJOSNWithGSONpicture() {
@@ -113,6 +120,7 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
             showToastbutton();
         }
     }
+
     private void showToastbutton() {
         runOnUiThread(new Runnable() {
             @Override
@@ -158,8 +166,6 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
         });
     }
 
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -169,18 +175,15 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
             case R.id.meme_evaluation:
                 if (evaluation!=null){
                     AlertDialog.Builder builder= new AlertDialog.Builder(Memepicture.this);
-                    builder.setTitle("表情包推挤应用");
+                    builder.setTitle("表情包推荐应用");
                     builder.setMessage("这个表情包你已经评价过了！");
                     builder.setIcon(R.mipmap.ic_laucher_memecover);
-
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                         }
                     });
                     builder.show();
-
-
                 }
                 if (evaluation==null){
                 Intent intent = new Intent(Memepicture.this, MemeEvaluation.class);
@@ -193,6 +196,7 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
         }
 
     }
+
 
     private class MyAdapter extends BaseAdapter {
 

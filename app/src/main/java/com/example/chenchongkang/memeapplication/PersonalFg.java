@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -45,6 +46,11 @@ public class PersonalFg extends Fragment implements OnClickListener{
         relativeLayout_4.setOnClickListener(this);
         SharedPreferences userInfor = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
         int userid = userInfor.getInt("userid", 0);
+        String username= userInfor.getString("username","");
+        TextView tvusername = (TextView)view.findViewById(R.id.tv_username);
+        tvusername.setText(username);
+
+
 
         Glide.with(this).load("http://192.168.43.87:8081/meme/getuseravatar/" + userid).placeholder(R.drawable.ic_startone)
 //                .into(titleLeftImv);

@@ -7,7 +7,8 @@
               android:gravity="center"
               android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
@@ -23,14 +24,15 @@
             android:src="@drawable/ic_startthree"/>
 
         <TextView
-            android:layout_width="100dp"
+            android:gravity="center_horizontal"
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:layout_below="@+id/avatar"
             android:layout_marginTop="8dp"
             android:text="一点点小任性"
             android:textColor="#ffffff"
             android:textSize="16sp"/>
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

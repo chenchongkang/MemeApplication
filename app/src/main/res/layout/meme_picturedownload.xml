@@ -14,7 +14,7 @@
         >
 
         <ImageButton
-            android:id="@+id/return_3"
+            android:id="@+id/return_picture_download"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentLeft="true"
@@ -31,27 +31,32 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:textColor="@color/white"
-            android:text="收藏"
+            android:text="下载"
             android:textSize="20sp"/>
 
     </RelativeLayout>
 
 
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="400dp"
-            android:layout_height="400dp"
-            android:layout_centerInParent="true"
-            android:scaleType="centerCrop"/>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"/>
 
-        <Button
-            android:id="@+id/downLoadBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="下载图片"
-            android:layout_below="@id/image"
-            />
+    <Button
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/beijing1"
+        android:id="@+id/downLoadBtn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="下载图片"
+        android:layout_below="@id/image"
+        />
 
 
 </LinearLayout>
