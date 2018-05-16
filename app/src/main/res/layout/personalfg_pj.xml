@@ -83,9 +83,10 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:background="#1a237e"
+        android:background="#12b7f5"
         android:gravity="center"
         android:text="提交评价"
+        android:textColor="@color/white"
         android:textSize="24sp"/>
 
 </LinearLayout>

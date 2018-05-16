@@ -74,9 +74,10 @@ public class MemeEvaluation extends AppCompatActivity implements View.OnClickLis
                         }
                         String s = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/addevaluation", jsonObject.toString());
                         if ("success".equals(s)) {
+
+
+                            setResult(RESULT_OK,(new Intent()).setAction(String.valueOf(memeid)));
                             finish();
-//                            Intent intent = new Intent(MemeEvaluation.this, Memepicture.class);
-//                            intent.putExtra("memeid",memeid);
 //                            startActivity(intent);
                         } else {
                             showToast(s);

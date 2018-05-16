@@ -98,6 +98,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         //找到需要使用的控件
+        TextView wjmm =(TextView)findViewById(R.id.wjmm);
         TextView textView = (TextView) findViewById(R.id.xyhzc);
         Button button = (Button) findViewById(R.id.bt_login);
         username = (EditText) findViewById(R.id.login_usrename);
@@ -106,7 +107,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //控件点击调用
         textView.setOnClickListener(this);
         button.setOnClickListener(this);
-
+        wjmm.setOnClickListener(this);
 
         mPref = getSharedPreferences("user_data", MODE_PRIVATE);
         userInfor = LoginActivity.this.getSharedPreferences("config", Context.MODE_PRIVATE);
@@ -168,6 +169,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.xyhzc:
                 Intent intent_2 = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent_2);
+                break;
+            case R.id.wjmm:
+                Intent intent_3 = new Intent(LoginActivity.this, FindUserPassword.class);
+                startActivity(intent_3);
                 break;
             default:
                 break;

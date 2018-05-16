@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.chenchongkang.memeapplication.api.HttpHandler;
@@ -37,6 +38,7 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
     private Button memeEvaluation;
     private MyAdapter adapter;
     private ImageView memeCover;
+    static final private int GET_CODE = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,9 +91,27 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
                 int abc=pickBean1.getImgID();
                 intent.putExtra("imgid",abc);
                 startActivity(intent);
+
             }
         });
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == GET_CODE) {
+            if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(Memepicture.this,"点击了返回",Toast.LENGTH_SHORT).show();
+            } else {
+                if (data != null) {
+                    new Thread(){
+                        public void run(){
+                            parseJOSNWithGSONEvaluation();
+                        }
+                    }.start();
+                    Toast.makeText(Memepicture.this,"得到第二个activity返回的结果:\n" + data.getAction(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     private void parseJOSNWithGSON() {
@@ -150,7 +170,6 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
                 memeintro.setText(ab.getMemeIntro());
                 TextView memeauthor = (TextView) findViewById(R.id.meme_author);
                 memeauthor.setText(ab.getAuthor());
-//              Toast.makeText(Memepicture.this,a,Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -188,7 +207,7 @@ public class Memepicture extends AppCompatActivity implements View.OnClickListen
                 if (evaluation==null){
                 Intent intent = new Intent(Memepicture.this, MemeEvaluation.class);
                 intent.putExtra("memeid",memeBean.getMemeID());
-                startActivity(intent);
+                startActivityForResult(intent,GET_CODE);
                 }
                 break;
             default:
