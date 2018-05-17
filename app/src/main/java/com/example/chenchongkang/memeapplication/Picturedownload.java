@@ -19,6 +19,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.target.Target;
+import com.example.chenchongkang.memeapplication.api.HttpHandler;
+import com.example.chenchongkang.memeapplication.model.MemeBean;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,7 +39,7 @@ import java.util.concurrent.ExecutionException;
 public class Picturedownload extends AppCompatActivity implements View.OnClickListener {
     private ImageView image ;
     private Button downLoadBtn ;
-    private int a;
+    private int a,b;
     private static String url;
     private String imagePath;
 
@@ -54,10 +60,6 @@ public class Picturedownload extends AppCompatActivity implements View.OnClickLi
         /**
          * Glide 加载图片保存到本地
          */
-//        Glide.with(getApplication())
-//                .load("http://192.168.43.87:8081/meme/getuseravatar/" + userid)
-
-
         image = (ImageView)findViewById(R.id.image);
         downLoadBtn = (Button)findViewById(R.id.downLoadBtn);
 
@@ -69,8 +71,6 @@ public class Picturedownload extends AppCompatActivity implements View.OnClickLi
         downLoadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //String path =   getImagePath(url);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -97,7 +97,7 @@ public class Picturedownload extends AppCompatActivity implements View.OnClickLi
     private String getImagePath(String imgUrl) {
         String path = null;
         FutureTarget<File> future = Glide.with(this)
-                .load(imgUrl)
+                .load(imgUrl+"?downloads")
                 .downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
         try {
             File cacheFile = future.get();

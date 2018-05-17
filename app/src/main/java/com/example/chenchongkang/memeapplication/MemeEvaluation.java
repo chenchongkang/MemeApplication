@@ -25,6 +25,7 @@ import java.util.PriorityQueue;
 public class MemeEvaluation extends AppCompatActivity implements View.OnClickListener {
     private double evaluation;
     private int userid,memeid;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //隐藏ActionBar
@@ -43,16 +44,11 @@ public class MemeEvaluation extends AppCompatActivity implements View.OnClickLis
         ratingBar_Small.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-
                 ratingBar_Small.setRating(rating);
                 evaluation =rating;
             }});
         SharedPreferences userInfor = this.getSharedPreferences("config", Context.MODE_PRIVATE);
         userid=userInfor.getInt("userid",0);
-
-
-
-
     }
 
     @Override
@@ -74,11 +70,8 @@ public class MemeEvaluation extends AppCompatActivity implements View.OnClickLis
                         }
                         String s = HttpHandler.executeHttpPost("http://192.168.43.87:8081/meme/addevaluation", jsonObject.toString());
                         if ("success".equals(s)) {
-
-
                             setResult(RESULT_OK,(new Intent()).setAction(String.valueOf(memeid)));
                             finish();
-//                            startActivity(intent);
                         } else {
                             showToast(s);
                         }
@@ -92,6 +85,7 @@ public class MemeEvaluation extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+
     private void showToast(final String text){
         runOnUiThread(new Runnable() {
             @Override
